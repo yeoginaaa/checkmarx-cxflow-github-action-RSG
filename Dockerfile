@@ -4,6 +4,7 @@ FROM checkmarx/cx-flow
 RUN apk update && apk upgrade
 
 #Test Jun 8
+RUN ls
 COPY checkmarx.crt /usr/local/share/ca-certificates/checkmarx.crt
 RUN chmod 644 /usr/local/share/ca-certificates/checkmarx.crt && update-ca-certificates
 
