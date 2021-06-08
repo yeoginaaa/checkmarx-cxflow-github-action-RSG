@@ -10,10 +10,11 @@ RUN apk add --update \
 CMD /bin/bash
 
 
-RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/* \
-  mkdir /usr/local/share/ca-certificates/extra
-ADD checkmarx.crt /usr/local/share/ca-certificates/foo.crt
-RUN chmod 644 /usr/local/share/ca-certificates/foo.crt && update-ca-certificates
+RUN apk update && apk add curl
+WORKDIR /usr/local/share/ca-certificates
+RUN curl -ks 'https://raw.githubusercontent.com/hernan-soto/checkmarx-cxflow-github-action-RSG/master/checkmarx.crt' -o '/usr/local/share/ca-certificates/EnterpriseRootCA.crt'
+RUN /usr/sbin/update-ca-certificates
+RUN keytool -keystore /usr/lib/jvm/java-8-oracle/jre/lib/security/cacerts -storepass changeit -noprompt -trustcacerts -importcert -alias EnterpriseRootCA -file EnterpriseRootCA.crt
 
 RUN curl "https://alawpcxmgr201.risk.regn.net/"
 
