@@ -5,8 +5,10 @@ RUN apk update && apk upgrade
 
 #Test Jun 8
 RUN ls
-COPY checkmarx.crt /usr/local/share/ca-certificates/checkmarx.crt
-RUN chmod 644 /usr/local/share/ca-certificates/checkmarx.crt && update-ca-certificates
+COPY checkmarx.crt /usr/local/share/ca-certificates/ca-certificates.crt
+RUN apk add --no-cache ca-certificates && \
+    update-ca-certificates
+RUN chmod 644 /usr/local/share/ca-certificates/ca-certificates.crt && update-ca-certificates
 
 
 #Copy the entrypoint script and properties used for the action
