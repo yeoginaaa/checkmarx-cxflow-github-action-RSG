@@ -8,10 +8,11 @@ RUN apk add --update \
     curl \
     && rm -rf /var/cache/apk/*
 CMD /bin/bash
-COPY checkmarx.crt /usr/local/share/ca-certificates/ca-certificates.crt
-RUN apk add --no-cache ca-certificates && \
-    update-ca-certificates
-RUN chmod 644 /usr/local/share/ca-certificates/ca-certificates.crt && update-ca-certificates
+
+RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
+COPY ./checkmarx.crt /usr/local/share/ca-certificates/checkmarx.crt
+RUN update-ca-certificates
+
 RUN curl "https://alawpcxmgr201.risk.regn.net/cxwebclient/Scans.aspx"
 
 
