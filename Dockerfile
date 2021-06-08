@@ -13,8 +13,10 @@ CMD /bin/bash
 RUN apk update && apk add curl
 WORKDIR /usr/local/share/ca-certificates
 RUN curl -ks 'https://raw.githubusercontent.com/hernan-soto/checkmarx-cxflow-github-action-RSG/master/checkmarx.crt' -o '/usr/local/share/ca-certificates/EnterpriseRootCA.crt'
+RUN curl -ks 'https://raw.githubusercontent.com/hernan-soto/checkmarx-cxflow-github-action-RSG/master/checkmarx.cert' -o '/usr/local/share/ca-certificates/checkmarx.cert'
 RUN /usr/sbin/update-ca-certificates
 RUN keytool -importcert -keypass changeit -file EnterpriseRootCA.crt -keystore /usr/lib/jvm/java-1.8-openjdk/jre/lib/security/cacerts -noprompt -storepass changeit
+RUN keytool -import -trustcacerts -alias localca -file checkmarx.cert -keystore /usr/lib/jvm/java-1.8-openjdk/jre/lib/security/cacerts -storepass changeit -noprompt
 
 RUN curl "https://alawpcxmgr201.risk.regn.net/"
 
