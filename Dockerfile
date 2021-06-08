@@ -12,11 +12,10 @@ CMD /bin/bash
 
 RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/* \
   mkdir /usr/local/share/ca-certificates/extra
-COPY checkmarx.crt /etc/ssl/cert.pem
-ADD checkmarx.crt /etc/ssl/certs/ca-certificates.crt
-RUN update-ca-certificates
+ADD checkmarx.crt /usr/local/share/ca-certificates/foo.crt
+RUN chmod 644 /usr/local/share/ca-certificates/foo.crt && update-ca-certificates
 
-RUN curl "https://alawpcxmgr201.risk.regn.net/cxwebclient/Scans.aspx"
+RUN curl "https://alawpcxmgr201.risk.regn.net/"
 
 
 #Copy the entrypoint script and properties used for the action
