@@ -5,9 +5,7 @@ FROM checkmarx/cx-flow
 WORKDIR /app
 RUN apk update && apk add curl
 RUN curl -ks 'https://raw.githubusercontent.com/hernan-soto/checkmarx-cxflow-github-action-RSG/master/checkmarx.crt' -o 'checkmarx.crt'
-RUN curl -ks 'https://raw.githubusercontent.com/hernan-soto/checkmarx-cxflow-github-action-RSG/master/checkmarx.cert' -o '/usr/local/share/ca-certificates/checkmarx.cert'
 
-USER root
 COPY checkmarx.crt /app
 RUN keytool -keystore /etc/ssl/certs/java/cacerts -storepass changeit -noprompt -trustcacerts -importcert -alias checkmarx -file /app/checkmarx.crt
 
