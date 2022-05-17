@@ -1,0 +1,28 @@
+name: CI
+​
+on: workflow_dispatch
+​
+jobs:
+  cx-scan:
+    name: Checkmarx Scan
+    runs-on: [ self-hosted, linux, on-prem, docker ]
+    continue-on-error: true
+​
+    steps:
+      - name: 📚 Checkout
+        uses: actions/checkout@v2
+​
+      - name: ⚔️ Checkmarx
+        uses: hernan-soto/checkmarx-cxflow-github-action-RSG@v2.16
+        with:
+          project: "A&R Core Library"
+          team: ${{ secrets.CHECKMARX_TEAM }}
+          checkmarx_url: ${{ secrets.CHECKMARX_URL }}
+          checkmarx_username: ${{ secrets.CHECKMARX_USER }}
+          checkmarx_password: ${{ secrets.CHECKMARX_PASS }}
+          checkmarx_client_secret: ${{ secrets.CHECKMARX_SECRET }}
+          incremental: true
+          break_build: false
+          scanners: sast
+          bug_tracker: Sarif
+          params: --namespace=${{ github.repository_owner }} --repo=${GITHUB_REPOSITORY#*/} --branch=${{ github.ref }}
