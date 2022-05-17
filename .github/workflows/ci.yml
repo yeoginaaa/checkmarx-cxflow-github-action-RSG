@@ -15,7 +15,7 @@ jobs:
       - name: ⚔️ Checkmarx
         uses: hernan-soto/checkmarx-cxflow-github-action-RSG@v2.16
         with:
-          project: "A&R Core Library"
+          project: "Pipeline Test"
           team: ${{ secrets.CHECKMARX_TEAM }}
           checkmarx_url: ${{ secrets.CHECKMARX_URL }}
           checkmarx_username: ${{ secrets.CHECKMARX_USER }}
