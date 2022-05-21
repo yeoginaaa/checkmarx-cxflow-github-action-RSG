@@ -5,15 +5,15 @@ on: workflow_dispatch
 jobs:
   cx-scan:
     name: Checkmarx Scan
-    runs-on: self-hosted #[ self-hosted, linux, on-prem, docker ]
+    runs-on: [ self-hosted, linux, on-prem, docker ] #self-hosted 
     continue-on-error: true
 
     steps:
       - name: 📚 Checkout
         uses: actions/checkout@v2
 
-    #  - name: ⚔️ Checkmarx
-    #    uses: hernan-soto/checkmarx-cxflow-github-action-RSG@v2.16
+      - name: ⚔️ Checkmarx
+        uses: hernan-soto/checkmarx-cxflow-github-action-RSG@v2.16
         with:
           project: "Pipeline Test"
           team: ${{ secrets.CHECKMARX_TEAM }}
