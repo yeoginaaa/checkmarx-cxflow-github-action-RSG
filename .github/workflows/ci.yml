@@ -12,8 +12,8 @@ jobs:
       - name: 📚 Checkout
         uses: actions/checkout@v2
 
-      - name: ⚔️ Checkmarx
-        uses: hernan-soto/checkmarx-cxflow-github-action-RSG@v2.16
+    #  - name: ⚔️ Checkmarx
+    #    uses: hernan-soto/checkmarx-cxflow-github-action-RSG@v2.16
         with:
           project: "Pipeline Test"
           team: ${{ secrets.CHECKMARX_TEAM }}
